@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CustRel:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/CustRel</output-path>
+    <root id="archive" name="CustRel.war">
+      <element id="artifact" artifact-name="CustRel:war exploded" />
+    </root>
+  </artifact>
+</component>
