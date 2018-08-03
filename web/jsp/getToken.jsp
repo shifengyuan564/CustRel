@@ -125,6 +125,7 @@
     <hr/>
 </div>
 <table>
+    <input type="hidden" value=${redirectParam} >
     <tr>
         <td>开放平台URL</td>
         <td>

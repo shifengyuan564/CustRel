@@ -209,6 +209,7 @@ public class RelApi {
         return sessionkey;
     }
 
+    // 获取JsAPI Ticket
     public static String getJsApiKey() {
         String ticket = null;
         Cache jsapiCache = CacheManager.getCache("jsapiTicket");
@@ -218,18 +219,21 @@ public class RelApi {
             Map<String, String> map = getAccessTokenSessionkey();
             GetAccessTicket at = new GetAccessTicket();
             ticket = at.getAccessTicket(map.get("accessToken"), map.get("sessionkey"), "jsapi", JSAPI_TICKET);
-            CacheManager.setCache("jsapiTicket", ticket, 100 * 60 * 1000L);
+            CacheManager.setCache("jsapiTicket", ticket, 50 * 60 * 1000L); // 50分钟
         }
         log.info(" JSAPI Ticket======> "+ ticket);
-        return ticket;
+
+        JSONObject json = new JSONObject(ticket);
+        String onlyTicket = (String) json.get("ticket");
+
+        return onlyTicket;
     }
 
-    public static String generateJsApiSign(String targetUrl, String jsApiTicket){
+    // 获取JsAPI
+    public static String generateJsApiSign(String jsApiTicket, String nonceStr, String ts, String targetUrl){
 
-        String timestamp = create_timestamp();
-        String nonceStr = create_nonce_str();
-        String temp = "Before Decode ===> : jsapi_ticket=" + jsApiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + targetUrl;
-        System.out.println("temp=" + temp);
+        String temp = "jsapi_ticket=" + jsApiTicket + "&noncestr=" + nonceStr + "&timestamp=" + ts + "&url=" + targetUrl;
+        log.info("Before Decode ===> : signature = " + temp);
 
         String signature = "";
         try {
@@ -245,8 +249,7 @@ public class RelApi {
             e.printStackTrace();
         }
 
-
-        System.out.println("After Decode ===> : signature=" + signature);
+        log.info("After Decode ===> : signature=" + signature);
         return signature;
     }
 
@@ -394,11 +397,11 @@ public class RelApi {
         return result;
     }
 
-    private static String create_nonce_str() {
+    public static String create_nonce_str() {
         return UUID.randomUUID().toString();
     }
 
-    private static String create_timestamp() {
+    public static String create_timestamp() {
         return Long.toString(System.currentTimeMillis());
     }
 }

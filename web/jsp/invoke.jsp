@@ -1,7 +1,64 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>demo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jsrel1.0.12.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/demo.js"></script>
+
+    <script type="text/javascript">
+        /*    var targetUrl = location.href.split('#')[0];    /!*http://localhost:8080/pages/ticket/clientTicketForReal.html*!/
+            window.onload = function () {
+                alert(targetUrl);
+                $.ajax({
+                    type: "GET",
+                    url: "../../servlet/signServlet",
+                    data: "url=" + encodeURIComponent(targetUrl) +
+                    "&jsticket=" + encodeURIComponent($("#jsticketUrl").val()) +
+                    "&appid=" + encodeURIComponent($("#appidinput").val()),
+                    dataType: "json",
+                    async: false,
+                    success: function (data, status) {
+                        var config = data;
+                        var signature1 = config.signature;
+                        var appid1 = config.appid;
+                        var nonceStr1 = config.nonceStr;
+                        var timestamp1 = config.timestamp;
+
+                        alert("begin rel init");
+                        rel.init({
+                            debug: 1,
+                            appid: appid1,
+                            timestamp: timestamp1,
+                            nonceStr: nonceStr1,
+                            signature: signature1
+                        });
+
+
+                    }
+                });
+            };*/
+
+        $(document).ready(function() {
+            console.log("输出init参数");
+            console.log($("#jsticketUrl").val());
+            console.log($("#appid-1").val());
+            console.log($("#timestamp").val());
+            console.log($("#nonceStr").val());
+            console.log($("#signature").val());
+            rel.init({
+                debug: 1,
+                appid: $("#appid-1").val(),
+                timestamp: $("#timestamp").val(),
+                nonceStr: $("#nonceStr").val(),
+                signature: $("#signature").val()
+            });
+        });
+    </script>
 </head>
 <style>
     .title1 {
@@ -40,11 +97,32 @@
     }
 </style>
 <body>
+
+
+<form name="initapi" >
+    <input type="hidden" value="${appid}" id="appid-1" >
+    <input type="hidden" value="${timestamp}" id="timestamp" >
+    <input type="hidden" value="${nonceStr}" id="nonceStr">
+    <input type="hidden" value="${signature}" id="signature">
+</form>
+
+<div>
+    <ul>
+        <c:if test="${map != null}">
+            <li><a class="ment">昵称：${map.nickname}</a></li>
+            <li><a class="ment">ticket：${jsticket}</a></li>
+            <li><a class="ment">appid：${appid}</a></li>
+            <li><a class="ment">timestamp：${timestamp}</a></li>
+            <li><a class="ment">nonceStr：${nonceStr}</a></li>
+            <li><a class="ment">signature：${signature}</a></li>
+        </c:if>
+    </ul>
+</div>
+
 <div hidden="true">
     <button id="jsticket">jsticket</button>
     <button> 输入jsticket</button>
-    <input type="text" id="jsticketUrl"
-           value="5IdsSw8XL3wT4OIMm78fX2ZtfGNH7IHyzxz0mKrGVUqzUvPmlzvK8VsQXq2oWsU="> </input>
+    <input type="text" id="jsticketUrl" value="${jsticket}"> </input>
 
     <button id="appid">appid</button>
     <button> 输入appid</button>
@@ -64,12 +142,12 @@
     <a name="step1"></a>
     <span class="title1"><b>基础接口</b></span><br/>
     <h3>判断当前客户端是否支持指定JS接口</h3>
-    <button id="checkJsApi" class="btn">checkJsApi</button>
-    <br/>
+    <button id="checkJsApi" class="btn">checkJsApi</button><br/>
     <div class="div_result">
         <span class="res_span">checkJsApiResult:</span>
         <input type="text" id="checkJsApiResult" class="inp_result"> </input><br/>
     </div>
+
     <a name="step2"></a><br/>
     <span class="title1"><b>图像接口</b></span><br/>
     <h3>选取图片</h3><br/>
@@ -85,8 +163,7 @@
     <br/>
     <div class="div_result">
         <span class="res_span"> 图片url: </span>
-        <input type="text" id="uploadimageUrl" class="inp_result"> </input>    <br/>
-
+        <input type="text" id="uploadimageUrl" class="inp_result"> </input><br/>
     </div>
 
     <a name="step3"></a><br/>
@@ -94,8 +171,7 @@
     <button id="getlocation" class="btn">getlocation</button>
     <div class="div_result">
         <span class="res_span"> 经度: </span>
-        <input type="text" id="latituede" class="inp_result"> </input>
-        <br/>
+        <input type="text" id="latituede" class="inp_result"> </input><br/>
         <span class="res_span"> 纬度: </span>
         <input type="text" id="longitude" class="inp_result">  </input>
     </div>
@@ -110,20 +186,20 @@
         <span class="res_span">favorite result:</span>
         <input type="text" id="favoriteButtonItemResult" class="inp_result"> </input>
     </div>
+
     <a name="step5"></a>
     <span class="title1"><b>分享接口</b></span>
     <button id="shareMenuItemsCustom" class="btn">shareMenuItemsCustom</button>
     <div class="div_result">
- <span class="res_span"> 
-分享到： 好友:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appFriend"/>
-朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appMoments"/>
-财富吧:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appWealthBar"/>
-微信好友:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="weixinFriendApp"/>
-微信朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="weixinMomentsApp"/>
-微博:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="WeiboApp"/>
-</span><br/>
+         <span class="res_span">
+        分享到： 好友:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appFriend"/>
+        朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appMoments"/>
+        财富吧:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appWealthBar"/>
+        微信好友:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="weixinFriendApp"/>
+        微信朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="weixinMomentsApp"/>
+        微博:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="WeiboApp"/>
+        </span><br/>
         <span class="res_span">shareMenu result:</span> <input type="text" id="shareMenuItemsCustomResult"
-                                                               class="inp_result"> </input>
     </div>
 
     <a name="step6"></a>
@@ -135,7 +211,6 @@
         </span>
         <span class="res_span">scanCode result:</span>
         <input type="text" id="scanCodeResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -144,30 +219,26 @@
     <div class="div_result">
         <span class="res_span">startRecord result:</span>
         <input type="text" id="startRecordResult" class="inp_result"> </input>
-
     </div>
+
     <a name="step6"></a>
     <span class="title1"><b>停止录音接口</b></span>
     <button id="stopRecord" class="btn">stopRecord</button>
     <div class="div_result">
         <span class="res_span">stopRecord localId :</span>
         <input type="text" id="stopRecordResult" class="inp_result"> </input>
-
     </div>
-
-
     <div class="div_result">
         <span class="res_span">得到的录音文件:</span>
         <input type="text" id="VoiceFile" class="inp_result"> </input>
-
     </div>
+
     <a name="step6"></a>
     <span class="title1"><b>播放语音接口</b></span>
     <button id="playVoice" class="btn">playVoice</button>
     <div class="div_result">
         <span class="res_span">playVoice result:</span>
         <input type="text" id="playVoiceResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -176,7 +247,6 @@
     <div class="div_result">
         <span class="res_span">pauseVoice result:</span>
         <input type="text" id="pauseVoiceResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -185,7 +255,6 @@
     <div class="div_result">
         <span class="res_span">stopVoice result:</span>
         <input type="text" id="stopVoiceResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -194,7 +263,6 @@
     <div class="div_result">
         <span class="res_span">uploadVoice result:</span>
         <input type="text" id="uploadVoiceResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -203,7 +271,6 @@
     <div class="div_result">
         <span class="res_span">getNetworkType result:</span>
         <input type="text" id="getNetworkTypeResult" class="inp_result"> </input>
-
     </div>
 
     <a name="step6"></a>
@@ -212,71 +279,26 @@
     <!-- <div class="div_result">
      <span class="res_span">closeWindow result:</span>
     <input type="text" id="closeWindowResult" class="inp_result"> </input>
-
      </div> -->
 
     <a name="step6"></a>
     <span class="title1"><b>JSPAY支付接口</b></span>
     <button id="chooseRELPay" class="btn">chooseRELPay</button>
     <div class="div_result">
-<span class="res_span"> 
-appid: <input type="text" id="jspay_appid" class="inp_result" style="width:20%;"
-              value="56Bbg4cGzJXuPJVKMYpuug=="> </input>
-    jspayticket: <input type="text" id="jspay_ticket" class="inp_result" style="width:20%;"
-                        value="96nM3gVF8gnP9Xpy4eGczDTLCVoic81h7l6697dwxLhD4jjivfJBp0GmKyY8fqs="> </input>
-    totalFee: <input type="text" id="jspay_totalFee" class="inp_result" style="width:20%;" value="100"> </input>
-    orderid: <input type="text" id="jspay_orderid" class="inp_result" style="width:20%;"
-                    value="orderidtest001"> </input>
-    channelAppNo:<input type="text" id="jspay_channelAppNo" class="inp_result" style="width:20%;" value="re"> </input>
-    remark:<input type="text" id="jspay_remark" class="inp_result" style="width:20%;" value="remark"> </input>
-</span>
+        <span class="res_span">
+            appid: <input type="text" id="jspay_appid" class="inp_result" style="width:20%;" value="${appid}"> </input>
+            jspayticket: <input type="text" id="jspay_ticket" class="inp_result" style="width:20%;" value=""> </input>
+            totalFee: <input type="text" id="jspay_totalFee" class="inp_result" style="width:20%;" value="100"> </input>
+            orderid: <input type="text" id="jspay_orderid" class="inp_result" style="width:20%;" value="orderidtest001"> </input>
+            channelAppNo:<input type="text" id="jspay_channelAppNo" class="inp_result" style="width:20%;" value="re"> </input>
+            remark:<input type="text" id="jspay_remark" class="inp_result" style="width:20%;" value="remark"> </input>
+        </span>
         <span class="res_span">chooseRELPay result:</span>
         <input type="text" id="chooseRELPayResult" class="inp_result"> </input>
-
     </div>
 
 
 </div>
 
 </body>
-<script defer type="text/javascript" src="../js/jquery.min.js"></script>
-<script defer type="text/javascript" src="../js/jsrel1.0.12.js"></script>
-<script defer type="text/javascript">
-    var targetUrl = location.href.split('#')[0];    /*http://localhost:8080/pages/ticket/clientTicketForReal.html*/
-    window.onload = function () {
-        alert(targetUrl);
-        $.ajax({
-            type: "GET",
-            url: "../../servlet/signServlet",
-            data: "url=" + encodeURIComponent(targetUrl) +
-            "&jsticket=" + encodeURIComponent($("#jsticketUrl").val()) +
-            "&appid=" + encodeURIComponent($("#appidinput").val()),
-            dataType: "json",
-            async: false,
-            success: function (data, status) {
-                var config = data;
-                var signature1 = config.signature;
-                var appid1 = config.appid;
-                var nonceStr1 = config.nonceStr;
-                var timestamp1 = config.timestamp;
-
-                alert("begin rel init");
-                rel.init({
-                    debug: 1,
-                    appid: appid1,
-                    timestamp: timestamp1,
-                    nonceStr: nonceStr1,
-                    signature: signature1
-                });
-
-
-            }
-        });
-
-
-    };
-
-
-</script>
-<script defer type="text/javascript" src="../js/demo.js"></script>
 </html>

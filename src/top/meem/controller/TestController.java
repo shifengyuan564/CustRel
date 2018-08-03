@@ -7,21 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import top.meem.cache.CacheManager;
-import top.meem.menu.MenuManager;
 import top.meem.ticket.GetAccessTicket;
 import top.meem.ticket.GetAccessToken;
 import top.meem.utils.RelApi;
-import top.meem.utils.RelApiForJsApi;
 import top.meem.utils.UtilProperties;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
-import java.util.Map;
-import java.util.UUID;
 
 
 @Controller
@@ -30,14 +23,34 @@ public class TestController {
 
     private Logger log = Logger.getLogger(TestController.class);
 
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public String testPage(Model model){
-
-        System.out.println("jsapi ticket:"+ RelApi.getJsApiKey());
+    // 测试页面
+    @RequestMapping(value = "/check")
+    public String checkJsImport(RedirectAttributes attr){
         return "/jsp/test";
     }
+
+
+    @RequestMapping(value = "/scan", method = RequestMethod.GET)
+    public String testScan(HttpServletRequest request, Model model){
+
+        String currentUrl = request.getRequestURL().toString();
+        String jsApiTicket = RelApi.getJsApiKey();
+        String ts = RelApi.create_timestamp();
+        String nonceStr = RelApi.create_nonce_str();
+
+        System.out.println("【jsapi ticket】:"+ jsApiTicket + ", 【currentUrl】:"+ currentUrl);
+        String signature = RelApi.generateJsApiSign(jsApiTicket,nonceStr,ts,currentUrl);
+
+        model.addAttribute("jsticket", jsApiTicket);
+        model.addAttribute("signature", signature);
+        model.addAttribute("timestamp", ts);
+        model.addAttribute("nonceStr", nonceStr);
+        model.addAttribute("appid", UtilProperties.getAppid());
+
+        return "jsp/invoke";
+    }
     @RequestMapping(value = "/token", method = RequestMethod.GET)
-    public String testToken(){
+    public String testToken(HttpServletRequest request, Model model){
         return "/jsp/getToken";
     }
 
@@ -76,7 +89,7 @@ public class TestController {
         System.out.println("jsapi ticket:"+ ticket);
 
         // step 5 - signature
-
+        // ...
 
         return "index";
     }

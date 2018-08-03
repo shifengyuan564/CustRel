@@ -5,18 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import top.meem.menu.MenuManager;
 import top.meem.utils.RelApi;
-import top.meem.utils.RelApiForJsApi;
 import top.meem.utils.UtilProperties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
 import java.util.Formatter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,21 +25,16 @@ public class MainController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String mainPage(HttpServletRequest request, Model model, String code) {
-        log.info("/* -----------------进入主页面------------------获取的code值： */" + code);
-
-        Map<String, String> accessTokenAndOpenId = RelApi.getAccessTokenAndOpenId(code);
-        String access_token = accessTokenAndOpenId.get("access_token");
-        String openid = accessTokenAndOpenId.get("openid");
-
-        // ******** 获取普通access_token *************
-        Map<String,String> map = RelApi.getAccessTokenSessionkey();
-        log.info("获取普通accessToken:" + map.get("accessToken"));
+        log.info(" ----------------- 进入首页面/main ------------------获取的code值：" + code);
 
         // *********通过特殊access_token和openid获取用户的信息***********
-        Map<String, String> userInfoMap = RelApi.getUserInfo(access_token, openid);
+        Map<String, String> accessTokenAndOpenId = RelApi.getAccessTokenAndOpenId(code);    // 用code获取token
+        String access_token = accessTokenAndOpenId.get("access_token");
+        String openid = accessTokenAndOpenId.get("openid");
+        log.info("access_token:" + access_token + ", openid=" + openid);
 
         //创建用户对象
-        log.info("access_token:" + access_token + ", openid=" + openid);
+        Map<String, String> userInfoMap = RelApi.getUserInfo(access_token, openid);
         String cisno = userInfoMap.get("cisno");
 
         //成功认证之后创建session
@@ -54,15 +45,35 @@ public class MainController {
         session.setAttribute("cisno", cisno);
         model.addAttribute("map", userInfoMap);
 
-        // =========================================
-        String[] retArray = RelApiForJsApi.generateTokenAndSessionKey();
-        String ticket = RelApiForJsApi.getJsApiTicket(retArray[0],retArray[1]);
-        System.out.println(ticket);
-        log.info(ticket);
-        // ========================================
+        // TODO : 入库以openid为主键
+
+        // ******** 1. 获取普通access_token *************
+        Map<String,String> map = RelApi.getAccessTokenSessionkey();
+        log.info("获取普通accessToken:" + map.get("accessToken"));
 
 
-        return "jsp/expect";
+        // ******* 2. 获取 jsapi 和 signature *************
+        String currentUrl = request.getRequestURL().toString() + "?code="+code;
+        String jsApiTicket = RelApi.getJsApiKey();
+        String ts = RelApi.create_timestamp();
+        String nonceStr = RelApi.create_nonce_str();
+
+        System.out.println("【jsapi ticket】:"+ jsApiTicket + ", 【currentUrl】:"+ currentUrl);
+        String signature = RelApi.generateJsApiSign(jsApiTicket,nonceStr,ts,currentUrl);
+
+        model.addAttribute("jsticket", jsApiTicket);
+        model.addAttribute("signature", signature);
+        model.addAttribute("timestamp", ts);
+        model.addAttribute("nonceStr", nonceStr);
+        model.addAttribute("appid", UtilProperties.getAppid());
+
+        return "jsp/invoke";
+    }
+
+    @RequestMapping(value = "/invoke", method = RequestMethod.GET)
+    public String invokeQr(HttpServletRequest request, Model model){
+        log.info("/* ----------------- 进入次页面/invoke ------------------*/" );
+        return "jsp/invoke";
     }
 
     private static String create_nonce_str() {
