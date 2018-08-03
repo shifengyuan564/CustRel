@@ -25,7 +25,7 @@ import java.util.List;
 
 public class Tools {
 
-    public static URI getURI(DefaultHttpClient client, List<NameValuePair> formparams, String getURL, String actionname, String path) {
+    public static URI getURI(DefaultHttpClient client, List<NameValuePair> formparams, String getURL, String actionname) {
     	FileInputStream instream = null;
         try {
             String https_cer_path = UtilProperties.getICBCHttpsCerPath();

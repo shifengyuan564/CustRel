@@ -26,9 +26,11 @@ public class UtilProperties {
 	private static String ICBCHttpsPort;
 	private static String ICBCHttpsPassword;
 	private static String ICBCHttpsCerFlag;
-	
+
+
 	private static String platformURL;
 	private static String hostURL;
+    private static String jsApiTicketURL;
 
 	private static boolean debug;	/* 是否调试模式 */
 
@@ -59,7 +61,8 @@ public class UtilProperties {
 			ICBCHttpsCerFlag = prop.getProperty("https_cer_flag");
 
 			platformURL = prop.getProperty("platformURL");			// 平台接口地址
-			hostURL = prop.getProperty("hostURL");            // 授权地址
+			hostURL = prop.getProperty("hostURL");                  // 授权地址
+            jsApiTicketURL = prop.getProperty("jsApiTicketURL");    // jsApi ticket
 
             debug = Boolean.parseBoolean(prop.getProperty("debug", "false"));
 
@@ -160,5 +163,8 @@ public class UtilProperties {
 	public static String getHostURL() {
 		return hostURL;
 	}
-	
+
+    public static String getJsApiTicketURL() {
+        return jsApiTicketURL;
+    }
 }

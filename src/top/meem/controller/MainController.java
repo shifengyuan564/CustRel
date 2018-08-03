@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import top.meem.menu.MenuManager;
 import top.meem.utils.RelApi;
+import top.meem.utils.RelApiForJsApi;
 import top.meem.utils.UtilProperties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -34,34 +36,8 @@ public class MainController {
         String openid = accessTokenAndOpenId.get("openid");
 
         // ******** 获取普通access_token *************
-        String accessToken = RelApi.getAccessToken();
-        log.info("获取普通accessToken:" + accessToken);
-
-        // ********* 获取 jsApi Ticket 和 signature*****
-        String currentUrl = request.getRequestURL().toString();
-        String jsapi_ticket = RelApi.getJsApiTicket();
-        String timestamp = create_timestamp();
-        String nonceStr = create_nonce_str();
-
-        String temp = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + currentUrl;
-        log.info("获取的jsapi："+temp);
-
-        String signature = "";
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(temp.getBytes("UTF-8"));
-            signature = byteToHex(crypt.digest());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        log.info("signature="+signature);
-        model.addAttribute("appid", UtilProperties.getAppid());
-        model.addAttribute("timestamp", timestamp);
-        model.addAttribute("nonceStr", nonceStr);
-        model.addAttribute("signature", signature);
+        Map<String,String> map = RelApi.getAccessTokenSessionkey();
+        log.info("获取普通accessToken:" + map.get("accessToken"));
 
         // *********通过特殊access_token和openid获取用户的信息***********
         Map<String, String> userInfoMap = RelApi.getUserInfo(access_token, openid);
@@ -77,6 +53,14 @@ public class MainController {
         }
         session.setAttribute("cisno", cisno);
         model.addAttribute("map", userInfoMap);
+
+        // =========================================
+        String[] retArray = RelApiForJsApi.generateTokenAndSessionKey();
+        String ticket = RelApiForJsApi.getJsApiTicket(retArray[0],retArray[1]);
+        System.out.println(ticket);
+        log.info(ticket);
+        // ========================================
+
 
         return "jsp/expect";
     }

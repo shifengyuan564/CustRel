@@ -2,17 +2,24 @@ package top.meem.utils;
 
 import com.crypto.RSAUtils;
 import com.crypto.Sha1Utils;
+import com.crypto.TripleDesUtils;
 import com.icbc.crypto.utils.Base64;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.web.client.RestTemplate;
 import top.meem.cache.Cache;
 import top.meem.cache.CacheManager;
+import top.meem.ticket.GetAccessTicket;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @创建人:周中俊
@@ -40,9 +47,10 @@ public class RelApi {
     private final static String PRIVATE_KEY = UtilProperties.getPrivkey();
     // 平台公钥存放路径
     private final static String PLAT_FORMPUB_KEY = UtilProperties.getPlatformpubkey();
+    // jsapi ticket
+    private final static String JSAPI_TICKET = UtilProperties.getJsApiTicketURL();
 
-    // JS API
-    private final static String JSAPI = UtilProperties.getPlatformURL() + "/open/ticket/getticket";     // https://imapi.icbc.com.cn/open/ticket/getticket?access_token=xxx&type=jsapi
+
 
     /*
      * 根据appid和时间戳获取签名
@@ -95,6 +103,7 @@ public class RelApi {
     private static String getAccessTokenBase() {
         Cache c = null;
         String accesstoken = null;
+        String sessionkey = null;
 
         try {
             c = CacheManager.getCache("accessToken");
@@ -134,7 +143,7 @@ public class RelApi {
                         System.out.println("判断正误:" + ret);
                         if (ret) {
                             //  第三步：使用服务号私钥解密，获取sessionkey明文 (保存100分钟)
-                            String sessionkey = new String(RSAUtils.decryptByPrivateKey(Base64.icbcbase64decode(key_c), UtilProperties.getPrivkey()));
+                            sessionkey = new String(RSAUtils.decryptByPrivateKey(Base64.icbcbase64decode(key_c), UtilProperties.getPrivkey()));
                             CacheManager.setCache("accesstoken", accesstoken, 100 * 60 * 1000L);
                             CacheManager.setCache("sessionkey", sessionkey, 100 * 60 * 1000L);
                             CacheManager.setCache("expiredtime", expiredtime, 100 * 60 * 1000L);
@@ -145,10 +154,7 @@ public class RelApi {
 
                     }
                     // 第四步：用之前获得的access_token， 采用http GET方式，请求获得jsapi_ticket
-                    if (c != null) {
-                        String jsApiTicket = generateJsApiTicket(accesstoken);
-                        CacheManager.setCache("jsapiticket", jsApiTicket, 100 * 60 * 1000L);
-                    }
+
                 }
             }
 
@@ -159,28 +165,26 @@ public class RelApi {
         return c == null ? null : c.getVal();
     }
 
+
     /**
      * 获取accesstoken & sessionkey
      *
      * @return
      */
     public static Map<String, String> getAccessTokenSessionkey() {
-        Cache accessTokenCache = null, sessionkeyCache = null, jsApiTicketCache = null;
+        Cache accessTokenCache = null, sessionkeyCache = null;
 
         try {
             accessTokenCache = CacheManager.getCache("accesstoken");
             sessionkeyCache = CacheManager.getCache("sessionkey");
-            jsApiTicketCache = CacheManager.getCache("jsapiticket");
 
             log.info("\n\naccessTokenCache ->" + accessTokenCache
-                    + "\nsessionkeyCache ->" + sessionkeyCache
-                    + "\njsApiTicketCache ->" + jsApiTicketCache);
+                    + "\nsessionkeyCache ->" + sessionkeyCache);
 
             if (accessTokenCache == null) {
                 getAccessTokenBase();                // 重新获取
                 accessTokenCache = CacheManager.getCache("accesstoken");
                 sessionkeyCache = CacheManager.getCache("sessionkey");
-                jsApiTicketCache = CacheManager.getCache("jsapiticket");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,7 +194,6 @@ public class RelApi {
         Map<String, String> resultMap = new HashMap<String, String>();
         resultMap.put("accessToken", accessTokenCache.getVal());
         resultMap.put("sessionkey", sessionkeyCache.getVal());
-        resultMap.put("jsapiticket", jsApiTicketCache.getVal());
         return resultMap;
     }
 
@@ -206,10 +209,45 @@ public class RelApi {
         return sessionkey;
     }
 
-    public static String getJsApiTicket() {
-        String jsApiTicket = getAccessTokenSessionkey().get("jsapiticket");
-        //System.out.println("\n\n方法里面jsapiticket" + jsapiticket);
-        return jsApiTicket;
+    public static String getJsApiKey() {
+        String ticket = null;
+        Cache jsapiCache = CacheManager.getCache("jsapiTicket");
+        if (jsapiCache != null) {
+            ticket = jsapiCache.getVal();
+        } else {
+            Map<String, String> map = getAccessTokenSessionkey();
+            GetAccessTicket at = new GetAccessTicket();
+            ticket = at.getAccessTicket(map.get("accessToken"), map.get("sessionkey"), "jsapi", JSAPI_TICKET);
+            CacheManager.setCache("jsapiTicket", ticket, 100 * 60 * 1000L);
+        }
+        log.info(" JSAPI Ticket======> "+ ticket);
+        return ticket;
+    }
+
+    public static String generateJsApiSign(String targetUrl, String jsApiTicket){
+
+        String timestamp = create_timestamp();
+        String nonceStr = create_nonce_str();
+        String temp = "Before Decode ===> : jsapi_ticket=" + jsApiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + targetUrl;
+        System.out.println("temp=" + temp);
+
+        String signature = "";
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.reset();
+            crypt.update(temp.getBytes("UTF-8"));
+            signature = byteToHex(crypt.digest());
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+
+        System.out.println("After Decode ===> : signature=" + signature);
+        return signature;
     }
 
     /**
@@ -346,31 +384,21 @@ public class RelApi {
         return result;
     }
 
-
-    /*
-        获取 jsApi Ticket
-     */
-    private static String generateJsApiTicket(String accessToken){
-
-        String jsApiTicket = null;
-        StringBuilder url = new StringBuilder(JSAPI);
-        try {
-            url.append("?type=jsapi").append(URLEncoder.encode(accessToken, "UTF-8"));
-
-            String res = threeGet(url.toString());
-            if (res != null) {
-                JSONObject json = new JSONObject(res);
-                log.info("通过accessToken请求, 返回的【jsApi Ticket】:" + json.toString());
-                jsApiTicket = json.getString("ticket");
-                //String expiredtime = json.getString("expiredtime");
-            }
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            log.fatal("获取jsApi_Ticket出现异常");
-
+    private static String byteToHex(final byte[] hash) {
+        Formatter formatter = new Formatter();
+        for (byte b : hash) {
+            formatter.format("%02x", b);
         }
+        String result = formatter.toString();
+        formatter.close();
+        return result;
+    }
 
-        return jsApiTicket;
+    private static String create_nonce_str() {
+        return UUID.randomUUID().toString();
+    }
+
+    private static String create_timestamp() {
+        return Long.toString(System.currentTimeMillis());
     }
 }

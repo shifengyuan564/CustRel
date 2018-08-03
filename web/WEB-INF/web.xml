@@ -87,4 +87,38 @@
         <servlet-name>IcbcServlet</servlet-name>
         <url-pattern>/IcbcServlet</url-pattern>
     </servlet-mapping>
+
+    <!--获取系统时间戳-->
+    <servlet>
+        <servlet-name>GetSignatureServlet</servlet-name>
+        <servlet-class>top.meem.servlet.GetSignatureServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetSignatureServlet</servlet-name>
+        <url-pattern>/getSignatureServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetTokenServlet</servlet-name>
+        <servlet-class>top.meem.servlet.GetTokenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTokenServlet</servlet-name>
+        <url-pattern>/getTokenServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetTicketServlet</servlet-name>
+        <servlet-class>top.meem.servlet.GetTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTicketServlet</servlet-name>
+        <url-pattern>/getTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetPropertiesServlet</servlet-name>
+        <servlet-class>top.meem.servlet.GetPropertiesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetPropertiesServlet</servlet-name>
+        <url-pattern>/getPropertiesServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

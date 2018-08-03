@@ -68,7 +68,7 @@ public class MenuManager {
         byte[] sessionkey = Base64.icbcbase64decode(key);
         formparams.add(new BasicNameValuePair("access_token", token));
         try {
-            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/delete", path);
+            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/delete");
             HttpGet httpGet = new HttpGet(uri);
             HttpResponse result = client.execute(httpGet);
 
@@ -99,7 +99,7 @@ public class MenuManager {
         byte[] sessionkey = Base64.icbcbase64decode(key);
         formparams.add(new BasicNameValuePair("access_token", token));
         try {
-            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/get", path);
+            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/get");
             HttpGet httpGet = new HttpGet(uri);
 
             HttpResponse result = client.execute(httpGet);
@@ -142,7 +142,7 @@ public class MenuManager {
         String retStr = "";
         try {
             HttpEntity entity = new UrlEncodedFormEntity(formparams, "UTF-8");
-            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/create?access_token=" + token, path);
+            java.net.URI uri = Tools.getURI(client, formparams, getUrl, "/open/menu/create?access_token=" + token);
             String url = uri.toString().replaceFirst("\\?body", "&body");
             log.info(url);
 
