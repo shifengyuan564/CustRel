@@ -63,6 +63,7 @@
 
     <!-- 对静态资源文件的访问 -->
     <mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
+    <mvc:resources mapping="/html/**" location="/html/" cache-period="31556926"/>
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
     <mvc:resources mapping="/plugin/**" location="/plugin/" cache-period="31556926"/>

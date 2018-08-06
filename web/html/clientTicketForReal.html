@@ -1,0 +1,629 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+.title1 {font-size: 3em;}
+.title_a {color: black;}
+.div_result {margin-top: 20px;}
+.share_checkbox {size: 50px;}
+
+.inp_result {
+	width: 60%;
+	height: 60px;
+	font-size: 30px;
+	color: red;
+}
+
+.res_span {
+	width: 30%;
+	height: 60px;
+	font-size: 40px;
+}
+
+.btn {
+	width: 95%;
+	height: 70px;
+	font-size: 50px;
+	background-color: green;
+}
+</style>
+
+<body>
+	<div hidden="true">
+		<button id="jsticket">jsticket</button>
+		<button>输入jsticket</button>
+		<input type="text" id="jsticketUrl" value="ol9lsV45370Hm0r4T8U1N363dys2o3eE27tbRuqN1B6c3cdIvamyZZf4ghOdGQE=">
+
+		<button id="appid">appid</button>
+		<button>输入appid</button>
+		<input type="text" id="appidinput" value="DLgiOs2NNEoLNWWKUqXa2Q==">
+	</div>
+
+	<div style="font-size: 3em; padding-left: 20%;" class="panel-body">
+			<a href="#step1" class="title_a">1、基础接口</a><br /> 
+			<a href="#step2" class="title_a">2、图像接口</a><br /> 
+			<a href="#step3" class="title_a">3、获取地理位置接口</a><br /> 
+			<a href="#step4" class="title_a">4、收藏接口</a><br /> 
+			<a href="#step5" class="title_a">5、分享渠道控制接口</a><br /> 
+			<a href="#step6" class="title_a">6、扫一扫接口</a><br /> 
+			<a href="#step7" class="title_a">7、开始录音接口</a><br /> 
+			<a href="#step8" class="title_a">8、停止录音接口</a><br /> 
+			<a href="#step9" class="title_a">9、播放语音接口</a><br /> 
+			<a href="#step10" class="title_a">10、暂停播放接口</a><br /> 
+			<a href="#step11" class="title_a">11、停止播放接口</a><br /> 
+			<a href="#step12" class="title_a">12、上传语音接口</a><br /> 
+			<a href="#step13" class="title_a">13、获取网络状态接口</a><br /> 
+			<a href="#step14" class="title_a">14、关闭当前网页窗口接口</a><br /> 
+			<a href="#step15" class="title_a">15、唤起电话拨打</a><br />
+			<a href="#step16" class="title_a">16、获取会话用户信息</a><br />
+			<a href="#step17" class="title_a">17、通讯录唤起选人/群接口</a><br />
+			<a href="#step18" class="title_a">18、登陆用户个人信息获取</a><br />
+			<a href="#step19" class="title_a">19、发送气泡接口</a><br />
+			<a href="#step20" class="title_a">20、唤起e支付</a><br /> 
+			<a href="#step21" class="title_a">21、唤起评价构件</a><br />
+			<a href="#step22" class="title_a">22、贵金属开户</a><br />
+			<a href="#step23" class="title_a">23、JSPAY支付接口</a><br /> 
+			<a href="#step24" class="title_a">24、funcno接口</a><br />
+			<a href="#step25" class="title_a">25、自定义分享接口</a><br />
+			<a href="#step26" class="title_a">26、判断当前设备是否支持记步服务接口</a><br />
+			<a href="#step27" class="title_a">27、启动计步服务接口</a><br /> 
+			<a href="#step28" class="title_a">28、关闭记步服务接口</a><br />
+			<a href="#step29" class="title_a">29、获取服务状态接口</a><br />
+			<a href="#step30" class="title_a">30、获取指定范围日期的步数接口</a><br /> 
+			<a href="#step31" class="title_a">31、获取指定日期的步数接口</a><br />
+			<a href="#step32" class="title_a">32、更新当日步数接口</a><br />
+			<a href="#step33" class="title_a">33、活体认证接口</a><br />
+			<a href="#step34" class="title_a">34、公民身份认证接口</a><br />
+			<a href="#step35" class="title_a">35、语音识别接口</a><br />
+			<a href="#step36" class="title_a">36、身份证识别接口</a><br />
+			<a href="#step37" class="title_a">37、公众号主页跳转接口</a><br />
+			<a href="#step38" class="title_a">38、礼券发送接口</a><br />
+	</div>
+	<br />
+	<div>
+		<a name="step1"></a> <span class="title1"><b>基础接口</b></span><br />
+		<h3>判断当前客户端是否支持指定JS接口</h3>
+		<button id="checkJsApi" class="btn">checkJsApi</button>
+		<br />
+		<div class="div_result">
+			<span class="res_span">checkJsApiResult:</span>
+            <input type="text" id="checkJsApiResult" class="inp_result">
+            <br />
+		</div>
+		<!--<a name="step2"></a><br /> <span class="title1"><b>图像接口</b></span><br />
+		 <h3>选取图片</h3>
+		<br />
+		<button id="chooseimage" class="btn">chooseimage</button>
+		<br />
+		<div class="div_result">
+			<span class="res_span"> 图片id: </span> <input type="text"
+				id="chooseimageId" class="inp_result"> </input><br />
+		</div> -->
+		
+		
+		<a name="step2"></a><br /> <span class="title1"><b>图像接口</b></span><br />
+		<h3>选取图片</h3>
+		<br />
+		<button id="chooseimage" class="btn">chooseimage</button>
+		<br />
+			调用： 
+			<select id="chooseimageSelect">
+				<option value="0">全部展示</option>
+				<option value="1">仅拍照</option>
+				<option value="2">仅相册</option>
+				<option value="">其他</option>
+			</select>
+		<div class="div_result">
+			<span class="res_span"> 图片id: </span>
+            <input type="text"id="chooseimageId" class="inp_result"><br />
+		</div>
+		
+
+		<h3>上传图片</h3>
+		<button id="uploadimage" class="btn">uploadimage</button>
+		<br />
+		<div class="div_result">
+			<span class="res_span"> 图片url: </span>
+            <input type="text"id="uploadimageUrl" class="inp_result"> <br/>
+		</div>
+
+		<a name="step3"></a><br /> <span class="title1"><b>获取地理位置接口</b></span><br/>
+		<button id="getlocation" class="btn">getlocation</button>
+		<div class="div_result">
+			<span class="res_span"> 经度: </span> 
+			<input type="text" id="latitude" class="inp_result"> <br/>
+			<span class="res_span">	纬度: </span> 
+			<input type="text" id="longitude" class="inp_result"> <br/>
+			<span class="res_span">	地理位置: </span> 
+			<input type="text" id="locationName" class="inp_result"><br/>
+				<span class="res_span">	地区号: </span> 
+			<input type="text" id="locationArea" class="inp_result">
+		</div>
+
+		<a name="step4"></a> <span class="title1"><b>收藏接口</b></span>
+		<button id="favoriteButtonItem" class="btn">favoriteButtonItem</button>
+		<div class="div_result">
+			<span class="res_span"> 是否提供收藏功能(1:是;0:否):</span>
+            <input type="text" id="isAllow" value="1" style="width: 20%;" class="inp_result">
+			<br /> <span class="res_span">favorite result:</span>
+            <input type="text" id="favoriteButtonItemResult" class="inp_result">
+		</div>
+
+		<a name="step5"></a> <span class="title1"><b>分享接口</b></span>
+		<button id="shareMenuItemsCustom" class="btn">shareMenuItemsCustom</button>
+		<div class="div_result">
+			<span class="res_span"> 分享到： 
+			好友:<input	name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appFriend" /> 
+			朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appMoments" /> 
+			财富吧:<input	name="shareMenuItemsValue" class="share_checkbox" type="checkbox" value="appWealthBar" /> 
+			微信好友:<input name="shareMenuItemsValue"	class="share_checkbox" type="checkbox" value="weixinFriendApp" />
+			微信朋友圈:<input name="shareMenuItemsValue" class="share_checkbox" 	type="checkbox" value="weixinMomentsApp" /> 
+			微博:<input name="shareMenuItemsValue" class="share_checkbox" type="checkbox" 	value="WeiboApp" />
+			</span>
+			<br /> 
+			<span class="res_span">shareMenu result:</span> 
+			<input type="text" id="shareMenuItemsCustomResult" class="inp_result"></input>
+		</div>
+
+		<a name="step6"></a> <span class="title1"><b>扫一扫接口</b></span>
+		<button id="scanCode" class="btn">scanCode</button>
+		<div class="div_result">
+			<span class="res_span"> 是否融e联进行处理(0:不处理,1:处理):
+                <input type="text" id="needdeal" class="inp_result" style="width: 20%;" value="0">
+			</span> <span class="res_span">scanCode result:</span>
+            <input type="text" id="scanCodeResult" class="inp_result">
+		</div>
+
+		<a name="step7"></a> <span class="title1"><b>开始录音接口</b></span>
+		<button id="startRecord" class="btn">startRecord</button>
+		<div class="div_result">
+			<span class="res_span">startRecord result:</span>
+            <input type="text" id="startRecordResult" class="inp_result">
+		</div>
+
+		<a name="step8"></a> <span class="title1"><b>停止录音接口</b></span>
+		<button id="stopRecord" class="btn">stopRecord</button>
+		<div class="div_result">
+			<span class="res_span">stopRecord localId :</span>
+            <input type="text" id="stopRecordResult" class="inp_result">
+		</div>
+
+		<div class="div_result">
+			<span class="res_span">得到的录音文件:</span>
+            <input type="text" id="VoiceFile" class="inp_result">
+		</div>
+
+		<a name="step9"></a> <span class="title1"><b>播放语音接口</b></span>
+		<button id="playVoice" class="btn">playVoice</button>
+		<div class="div_result">
+			<span class="res_span">playVoice result:</span>
+            <input type="text" id="playVoiceResult" class="inp_result">
+		</div>
+
+		<a name="step10"></a> <span class="title1"><b>暂停播放接口</b></span>
+		<button id="pauseVoice" class="btn">pauseVoice</button>
+		<div class="div_result">
+			<span class="res_span">pauseVoice result:</span>
+            <input type="text"
+				id="pauseVoiceResult" class="inp_result"> </input>
+
+		</div>
+
+		<a name="step11"></a> <span class="title1"><b>停止播放接口</b></span>
+		<button id="stopVoice" class="btn">stopVoice</button>
+		<div class="div_result">
+			<span class="res_span">stopVoice result:</span>
+            <input type="text" id="stopVoiceResult" class="inp_result">
+		</div>
+
+		<a name="step12"></a> <span class="title1"><b>上传语音接口</b></span>
+		<button id="uploadVoice" class="btn">uploadVoice</button>
+		<div class="div_result">
+			<span class="res_span">uploadVoice result:</span>
+            <input type="text" id="uploadVoiceResult" class="inp_result">
+		</div>
+
+		<a name="step13"></a> <span class="title1"><b>获取网络状态接口</b></span>
+		<button id="getNetworkType" class="btn">getNetworkType</button>
+		<div class="div_result">
+			<span class="res_span">getNetworkType result:</span>
+            <input type="text" id="getNetworkTypeResult" class="inp_result">
+		</div>
+
+		<a name="step14"></a> <span class="title1"><b>关闭当前网页窗口接口</b></span>
+		<button id="closeWindow" class="btn">closeWindow</button>
+	
+		<a name="step15"></a> <span class="title1"><b>唤起电话拨打</b></span>
+		<button id="callPhoneNum" class="btn">callPhoneNum</button>
+		<div class="div_result">
+			<span class="res_span">callPhoneNum result:</span> 
+			<input	type="text" id="callPhoneNumInput" class="inp_result" value="13312345678">
+			<input	type="text" id="callPhoneNumResult" class="inp_result">
+		</div>
+				
+		<a name="step16"></a> <span class="title1"><b>会话信息获取接口</b></span>
+		<button id="getChatInfoToId" class="btn">getChatInfoToId</button>
+		<div class="div_result">
+			<span class="res_span">getChatInfoToId result:</span> 
+			<input type="text" id="getChatInfoToIdResult" class="inp_result">
+			<span class="res_span">groupMemberCount result(群组人数):</span>
+			<input type="text" id="groupMemberCountResult" class="inp_result">
+			<span class="res_span">ICBCUserIdF result:</span>
+			<input type="text" id="ICBCUserIdForGetChatInfoToIdResult" class="inp_result">
+		</div>
+		
+		
+		<a name="step17"></a> <span class="title1"><b>通讯录唤起选人/群接口</b></span>
+		<button id="getContactId" class="btn">getContactId</button>
+		<div class="div_result">
+			<span class="res_span">getContactId result:</span>
+            <input type="text" id="getContactIdResult" class="inp_result">
+		</div>	
+		
+		<a name="step18"></a> <span class="title1"><b>登陆用户个人信息获取</b></span>
+		<button id="getUserinfo" class="btn">getUserinfo</button>
+		<div class="div_result">
+			<span class="res_span"> 获取： 
+			客户信息号:<input	name="getUserinfoItemsValue" class="share_checkbox" type="checkbox" value="cisno" /> 
+			用户实名状态:<input name="getUserinfoItemsValue" class="share_checkbox" type="checkbox" value="userStatus" />
+			用户融e联的id:<input name="getUserinfoItemsValue" class="share_checkbox" type="checkbox" value="imUserId" /> 
+			用户昵称:<input name="getUserinfoItemsValue" class="share_checkbox" type="checkbox" value="nickName" />  
+			手机号:<input name="getUserinfoItemsValue" class="share_checkbox" type="checkbox" value="mobileno" />  
+			</span>
+			<br /> 
+			<span class="res_span">getUserinfo result:</span> 
+			<input type="text" id="getUserinfoResult" class="inp_result"></input>
+			<input type="text" id="cisnoResult" class="inp_result"></input>
+			<input type="text" id="userStatusResult" class="inp_result"></input>
+			<input type="text" id="imUserIdResult" class="inp_result"></input>
+			<input type="text" id="nickNameResult" class="inp_result"></input>
+			<input type="text" id="mobilenoResult" class="inp_result"></input>
+		</div>
+		
+		<a name="step19"></a> <span class="title1"><b>发送气泡接口</b></span>
+		<button id="sendMessage" class="btn">sendMessage</button>
+		<div class="div_result">
+			<span class="res_span"> 获取： 
+			发送方融e联id:<input id="fromId" class="inp_result"  value="" /> </br>
+			接收方融e联id:<input id="toId"   class="inp_result" value="" /> </br>
+			标题文字显示内容，前者显示发送方可视文字:<input id="sFromTitleString"   class="inp_result" value="标题文字显示内容，前者显示发送方可视文字" /></br>
+			标题文字显示内容，显示接收方发送文字:<input id="sToTitleString"   class="inp_result" value="标题文字显示内容，显示接收方发送文字" /> </br>
+			描述文字显示内容，前者显示发送方可视文字:<input id="sFromDetailString"   class="inp_result" value="描述文字显示内容，前者显示发送方可视文字" /> </br>
+			描述文字显示内容，后者显示接收方发送文字:<input id="sToDetailString"   class="inp_result" value="描述文字显示内容，后者显示接收方发送文字" /> </br>
+			底栏文字显示内容 用双竖线分隔，前者显示发送方可视文字，后者显示接收方发送文字:<input id="sTailString"   class="inp_result" value="底栏文字显示内容 用双竖线分隔，前者显示发送方可视文字，后者显示接收方发送文字" /></br> 
+			图片实体数据（base64后的图片二级制流，10K以内），可为空，为空展现默认图片:<input id="sPIC"   class="inp_result" value="" /> </br>
+			网页地址，要求必须encode:<input id="sEventURL"   class="inp_result" value="网页地址，要求必须encode" /> </br>
+			客户在点击气泡后，回传页面的数据。此数据在sEventURL后会以?/&sContentInfo=ABC#$%3D的形式回传页面。数据需要encode（UTF-8）:<input id="sContentInfo"   class="inp_result" value="" /> </br>
+			</span>
+			<br /> 		
+			<span class="res_span">sendMessage result:</span> 
+			<input	type="text" id="sendMessageResult" class="inp_result">
+		</div>
+		
+		<a name="step20"></a> <span class="title1"><b>唤起e支付</b></span>
+		<button id="callEPay" class="btn">callEPay</button>
+		<div class="div_result">
+			<span>输入卡号</span>
+			<input type="text" id="callEPayCard" class="inp_result" value="123456789012345"> </input> </br>
+			<span class="res_span">callEPay result:</span> 
+			<input type="text" id="callEPayResult" class="inp_result"> </input>
+		</div>
+			
+		<a name="step21"></a> <span class="title1"><b>唤起评价构件</b></span>
+		<button id="callFeedback" class="btn">callFeedback</button>
+		<div class="div_result">
+			<span class="res_span">callFeedback result:</span> 
+			<input type="text" id="callFeedbackResult" class="inp_result"> </input>
+		</div>	
+		
+		<a name="step22"></a> <span class="title1"><b>贵金属开户</b></span>
+		<button id="openGoldAccount" class="btn">openGoldAccount</button>
+		<div class="div_result">
+			<span class="res_span">openGoldAccount result:</span> 
+			<input type="text" id="openGoldAccountResult" class="inp_result"> </input>
+		</div>	
+		
+		<a name="step23"></a> <span class="title1"><b>JSPAY支付接口</b></span>
+		<button id="chooseRELPay" class="btn">chooseRELPay</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			appid: <input type="text" id="jspay_appid" class="inp_result" style="width: 20%;" value="56Bbg4cGzJXuPJVKMYpuug=="> </input>
+			jspayticket: <input type="text" id="jspay_ticket" class="inp_result" style="width: 20%;" value="zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz">
+			totalFee: <input type="text" id="jspay_totalFee" class="inp_result" style="width: 20%;" value="100">
+			orderid: <input type="text" id="jspay_orderid" class="inp_result" style="width: 20%;" value="orderidtest001">
+			channelAppNo(如果绑定了多商户，请使用"One|020002040095"这种形式，指定用户支付给特定的商户):
+                <input type="text" id="jspay_channelAppNo" class="inp_result" style="width: 20%;" value="One|020002040095"> One|020002040095
+			remark:<input type="text" id="jspay_remark" class="inp_result" style="width: 20%;" value="remark">
+			</span>
+
+            <span class="res_span">chooseRELPay result:</span>
+            <input type="text" id="chooseRELPayResult" class="inp_result">
+		</div>
+		
+		<a name="step24"></a> <span class="title1"><b>funcno接口</b></span>
+		<button id="callFunc" class="btn">callFunc</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			调用： 
+			<select id="callFuncSelect">
+				<option value="28">逸贷</option>
+				<option value="64">网点预约</option>
+				<option value="9001">基金购买</option>
+				<option value="E6">融e借</option>
+				<option value="180101">买理财</option>
+			</select>
+			</span>
+			<span>
+				输入参数
+				<input type="text" id="callFuncParam" class="inp_result" style="width: 20%;" value="a=xx11+1&b=2+2/v">
+			</span>
+			<br /> 
+			<span class="res_span">callFunc result:</span> 
+			<input type="text" id="callFuncResult" class="inp_result" value="调用完也不会有通知的">
+		</div>
+		
+		
+		<a name="step25"></a> <span class="title1"><b>自定义分享接口</b></span>
+		<button id="onMenuShareAppMoments" class="btn">自定义分享接口_融e联朋友圈</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			分享标题(title): <input type="text"
+				id="onMenuShareAppMoments_title" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_融e联朋友圈分享标题">自定义分享接口_融e联朋友圈分享标题 </input> 
+			分享链接(link): <input
+				type="text" id="onMenuShareAppMoments_link" class="inp_result" style="width: 20%;"
+				value="https://www.icbc.com.cn">自定义分享接口_融e联朋友圈分享链接
+				</input> 
+			分享图标(imgUrl): <input type="text" id="onMenuShareAppMoments_imgUrl" class="inp_result"
+				style="width: 20%;" value="100">自定义分享接口_融e联朋友圈分享图标</input> 
+			</span> 
+			<span class="res_span">onMenuShareAppMoments result:</span> 
+			<input
+				type="text" id="onMenuShareAppMomentsResult" class="inp_result"> </input>
+		</div>
+				
+		<button id="onMenuShareAppFriend" class="btn">自定义分享接口_融e联好友</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			分享标题(title): <input type="text"
+				id="onMenuShareAppFriend_title" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_融e联好友分享标题">自定义分享接口_融e联好友分享标题</input> 
+			分享描述(desc): <input
+				type="text" id="onMenuShareAppFriend_desc" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_融e联好友分享描述">自定义分享接口_融e联好友分享描述</input> 
+			分享链接(link): <input type="text" id="onMenuShareAppFriend_link" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_融e联好友分享链接">自定义分享接口_融e联好友分享链接 </input> 
+			分享图标(imgUrl): <input
+				type="text" id="onMenuShareAppFriend_imgUrl" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_融e联好友分享图标">自定义分享接口_融e联好友分享图标</input> 
+			分享类型(type): <input
+				type="text" id="onMenuShareAppFriend_type" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_融e联好友分享类型">分享类型,music、video或link，不填默认为link</input> 
+			分享数据链接(dataUrl): <input
+				type="text" id="onMenuShareAppFriend_" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_融e联好友分享数据链接">如果type是music或video，则要提供数据链接，默认为空</input> 	
+			</span> <span class="res_span">onMenuShareAppFriend result:</span> <input
+				type="text" id="onMenuShareAppFriendResult" class="inp_result"> </input>
+			</div>	
+			
+		<button id="onMenuShareWeiboApp" class="btn">自定义分享接口_微博</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			分享标题(title): <input type="text"
+				id="onMenuShareWeiboApp_title" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微博分享标题">自定义分享接口_微博分享标题</input> 
+			分享描述(desc): <input
+				type="text" id="onMenuShareWeiboApp_desc" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微博分享描述">自定义分享接口_微博分享描述</input> 
+			分享链接(link): <input type="text" id="onMenuShareWeiboApp_link" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微博分享链接">自定义分享接口_微博分享链接 </input> 
+			分享图标(imgUrl): <input
+				type="text" id="onMenuShareWeiboApp_imgUrl" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微博分享图标">自定义分享接口_微博分享图标</input> 
+			</span> 
+			<span class="res_span">onMenuShareWeiboApp result:</span> 
+			<input	type="text" id="onMenuShareWeiboAppResult" class="inp_result"> </input>
+		</div>		
+		
+		<button id="onMenuShareWeixinFriendApp" class="btn">自定义分享接口_微信好友</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			分享标题(title): <input type="text"
+				id="onMenuShareWeixinFriendApp_title" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微信好友分享标题">自定义分享接口_微信好友分享标题</input> 
+			分享描述(desc): <input
+				type="text" id="onMenuShareWeixinFriendApp_desc" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微信好友分享描述">自定义分享接口_微信好友分享描述</input> 
+			分享链接(link): <input type="text" id="onMenuShareWeixinFriendApp_link" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微信好友分享链接">自定义分享接口_微信好友分享链接 </input> 
+			分享图标(imgUrl): <input
+				type="text" id="onMenuShareWeixinFriendApp_imgUrl" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微信好友分享图标">自定义分享接口_微信好友分享图标</input> 
+			</span> 
+			<span class="res_span">onMenuShareWeixinFriendApp result:</span> 
+			<input	type="text" id="onMenuShareWeixinFriendAppResult" class="inp_result"> </input>
+		</div>		
+				
+			<button id="onMenuShareWeixinMomentsApp" class="btn">自定义分享接口_微信朋友圈</button>
+		<div class="div_result">
+			<span class="res_span"> 
+			分享标题(title): <input type="text"
+				id="onMenuShareWeixinMomentsApp_title" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微信朋友圈分享标题">自定义分享接口_微信朋友圈分享标题</input> 
+			分享描述(desc): <input
+				type="text" id="onMenuShareWeixinMomentsApp_desc" class="inp_result" style="width: 20%;"
+				value="自定义分享接口_微信朋友圈分享描述">自定义分享接口_微信朋友圈分享描述</input> 
+			分享链接(link): <input type="text" id="onMenuShareWeixinMomentsApp_link" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微信朋友圈分享链接">自定义分享接口_微信朋友圈分享链接 </input> 
+			分享图标(imgUrl): <input
+				type="text" id="onMenuShareWeixinMomentsApp_imgUrl" class="inp_result"
+				style="width: 20%;" value="自定义分享接口_微信朋友圈分享图标">自定义分享接口_微信朋友圈分享图标</input> 
+			</span> 
+			<span class="res_span">onMenuShareWeixinMomentsApp result:</span> 
+			<input	type="text" id="onMenuShareWeixinMomentsAppResult" class="inp_result"> </input>
+		</div>	
+	</div>
+
+		<a name="step26"></a> <span class="title1"><b>判断当前设备是否支持记步服务接口</b></span>
+		<button id="checkDevice" class="btn">checkDevice</button>
+		<div class="div_result">
+			<span class="res_span">checkDevice result:</span> 
+			<input type="text" id="checkDeviceResult" class="inp_result"> </input>
+		</div>	
+		
+		<a name="step27"></a> <span class="title1"><b>启动计步服务接口</b></span>
+		<button id="openStepService" class="btn">openStepService</button>
+		<div class="div_result">
+			<span class="res_span">openStepService result:</span> 
+			<input type="text" id="openStepServiceResult" class="inp_result"> </input>
+		</div>	
+
+		<a name="step28"></a> <span class="title1"><b>关闭记步服务接口</b></span>
+		<button id="closeStepService" class="btn">closeStepService</button>
+		<div class="div_result">
+			<span class="res_span">closeStepService result:</span> 
+			<input type="text" id="closeStepServiceResult" class="inp_result"> </input>
+		</div>	
+
+		<a name="step29"></a> <span class="title1"><b>获取服务状态接口</b></span>
+		<button id="getServiceStatus" class="btn">getServiceStatus</button>
+		<div class="div_result">
+			<span class="res_span">getServiceStatus result:</span> 
+			<input type="text" id="getServiceStatusResult" class="inp_result"> </input>
+		</div>	
+
+		<a name="step30"></a> <span class="title1"><b>获取指定范围日期的步数接口</b></span>
+		<button id="getStepList" class="btn">getStepList</button>
+		<div class="div_result">
+			<span class="res_span">startDate:</span> 
+			<input type="text" id="startDateForGetStepList" class="inp_result" value="20170925">格式例如:20170925</input>
+		</div>
+		<div class="div_result">
+			<span class="res_span">endDate:</span> 
+			<input type="text" id="endDateForGetStepList" class="inp_result" value="20170925">格式例如:20170925</input>
+		</div>
+		<div class="div_result">
+			<span class="res_span">getStepList result:</span> 
+			<input type="text" id="getStepListResult" class="inp_result"> </input>
+		</div>
+		
+		<a name="step31"></a> <span class="title1"><b>getStep接口</b></span>
+		<button id="getStep" class="btn">getStep</button>
+		<div class="div_result">
+			<span class="res_span">date:</span> 
+			<input type="text" id="dateForGetStep" class="inp_result" value="20170925">格式例如:20170925</input>
+		</div>
+		<div class="div_result">
+			<span class="res_span">getStep result:</span> 
+			<input type="text" id="getStepResult" class="inp_result"> </input>
+		</div>
+
+		<a name="step32"></a> <span class="title1"><b>updateTodayStep接口</b></span>
+		<button id="updateTodayStep" class="btn">updateTodayStep</button>
+		<div class="div_result">
+			<span class="res_span">updateTodayStep result:</span> 
+			<input type="text" id="updateTodayStepResult" class="inp_result"> </input>
+		</div>
+		
+		<a name="step33"></a> <span class="title1"><b>活体认证接口</b></span>
+		<button id="getPersonFaceDifference" class="btn"  />getPersonFaceDifferenc</button>
+		<div class="div_result">
+			<span class="res_span">getPersonFaceDifference result:</span> 
+			调用： 
+			<select id="getPersonFaceDifferenceSelect">
+				<option value="0">不返回base64图片给页面</option>
+				<option value="1">返回base64图片给页面</option>
+			</select>
+			<input type="text" id="getPersonFaceDifferenceResult" value ="" > </input>
+		</div>
+		
+		<a name="step34"></a> <span class="title1"><b>公民身份认证接口</b></span>
+		<button id="standingSpotAchieve" class="btn">standingSpotAchieve</button>
+		<input type="hidden"  id="identityCard"  value="44211211121221"/>
+		<input type="hidden"  id="username"  value="某某某"/>
+		<input type="hidden"  id="signDate"  value="199106"/>
+		<div class="div_result">
+			<span class="res_span">standingSpotAchieve  result:</span> 
+			<input type="text" id="standingSpotAchieveResult" class="inp_result"> </input></br>
+			相似度:<input type="text" id="standingSpotAchieveSimResult" value ="" > </input></br>
+			相似度阀值:<input type="text" id="standingSpotAchieveDefaultSimResult" value ="" > </input>
+		</div>
+		
+		
+		<a name="step35"></a> <span class="title1"><b>语音识别接口</b></span>
+		<button id="speechRecognition" class="btn">speechRecognition</button>
+		<div class="div_result">
+			<span class="res_span">speechRecognition result:</span> 
+			<input type="text" id="speechRecognitionResult" class="inp_result"> </input>
+		</div>
+		
+		<a name="step36"></a> <span class="title1"><b>身份证识别接口</b></span>
+		<button id="opticalCharacterRecognition" class="btn">opticalCharacterRecognition</button>
+		<div class="div_result">
+			<span class="res_span">opticalCharacterRecognition result:</span> 
+				返回结果<input type="text" id="opticalCharacterRecognitionResult" class="inp_result"> </input></br>
+				身份证号:<input type="text" id="opticalCharacterRecognitionCitizenIDNumberResult" class="inp_result"> </input></br>
+				地区:<input type="text" id="opticalCharacterRecognitionAddressResult" class="inp_result"> </input></br>
+				姓名:<input type="text" id="opticalCharacterRecognitionNameResult" class="inp_result"> </input></br>
+				签发日期:<input type="text" id="opticalCharacterRecognitionSignDateResult" class="inp_result"> </input></br>
+				到期日期:<input type="text" id="opticalCharacterRecognitionValidDateResult" class="inp_result"> </input></br>
+		</div>
+		
+		<a name="step37"></a> <span class="title1"><b>公众号主页跳转接口</b></span>
+		<button id="homePageJump" class="btn">homePageJump</button>
+		<input   id="homePageJumpMpName"  value="工银信用卡">工银信用卡</input></br>
+		<div class="div_result">
+			<span class="res_span">homePageJump result:</span> 
+				返回结果<input type="text" id="homePageJumpResult" class="inp_result"> </input></br>
+		</div>
+
+		<a name="step38"></a> <span class="title1"><b>礼券发送接口</b></span>
+		<button id="giftSend" class="btn">giftSend</button>
+		<input id="giftSendTitle"  value="标题">标题</input></br>
+		<input id="giftSendDescription"  value="描述">描述</input></br>
+		<input id="giftSendExpireDate"  value="18.05.01-18.05.10">礼券持续时间,例如 18.05.01-18.05.10</input></br>
+		<input id="giftSendGiftNo"  value="礼券编号">礼券编号</input></br>
+		<div class="div_result">
+			<span class="res_span">giftSend result:</span> 
+				返回结果<input type="text" id="giftSendResult" class="inp_result"> </input></br>
+		</div>
+
+
+</body>
+<script defer type="text/javascript" src="../js/jquery.min.js"></script>
+<script defer type="text/javascript" src="../js/jsrel1.0.12.js"></script>
+<script defer type="text/javascript">
+	var targetUrl = location.href.split('#')[0];
+	alert(targetUrl);
+	window.onload = function() {
+		$.ajax({
+			type : "GET",
+            url: "/CustRel/signServlet",
+			data : "url=" + encodeURIComponent(targetUrl) + "&jsticket="
+					+ encodeURIComponent($("#jsticketUrl").val()) + "&appid="
+					+ encodeURIComponent($("#appidinput").val()),
+			dataType : "json",
+			async : false,
+			success : function(data, status) {
+				var config = data;
+				var signature1 = config.signature;
+				var appid1 = config.appid;
+				var nonceStr1 = config.nonceStr;
+				var timestamp1 = config.timestamp;
+				alert("begin rel init");
+				rel.init({
+					debug : 1,
+					appid : appid1,
+					timestamp : timestamp1,
+					nonceStr : nonceStr1,
+					signature : signature1
+				});
+			}
+		});
+
+	};
+</script>
+<script defer type="text/javascript" src="../js/demo.js"></script>
+</html>

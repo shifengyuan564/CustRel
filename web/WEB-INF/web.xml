@@ -121,4 +121,14 @@
         <servlet-name>GetPropertiesServlet</servlet-name>
         <url-pattern>/getPropertiesServlet</url-pattern>
     </servlet-mapping>
+
+    <!-- signature servlet-->
+    <servlet>
+        <servlet-name>signServlet</servlet-name>
+        <servlet-class>top.meem.servlet.signServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signServlet</servlet-name>
+        <url-pattern>/signServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

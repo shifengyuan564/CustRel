@@ -24,7 +24,7 @@ public class MainController {
     private Logger log = Logger.getLogger(MainController.class);
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String mainPage(HttpServletRequest request, Model model, String code) {
+    public String mainPage(HttpServletRequest request, Model model, String code) throws UnsupportedEncodingException {
         log.info(" ----------------- 进入首页面/main ------------------获取的code值：" + code);
 
         // *********通过特殊access_token和openid获取用户的信息***********
@@ -53,12 +53,14 @@ public class MainController {
 
 
         // ******* 2. 获取 jsapi 和 signature *************
-        String currentUrl = request.getRequestURL().toString() + "?code="+code;
+
+        String currentUrl = request.getRequestURL().toString() + "?code="+URLEncoder.encode(code,"utf-8");
         String jsApiTicket = RelApi.getJsApiKey();
         String ts = RelApi.create_timestamp();
         String nonceStr = RelApi.create_nonce_str();
 
         System.out.println("【jsapi ticket】:"+ jsApiTicket + ", 【currentUrl】:"+ currentUrl);
+        log.info("【jsapi ticket】:"+ jsApiTicket + ", 【currentUrl】:"+ currentUrl);
         String signature = RelApi.generateJsApiSign(jsApiTicket,nonceStr,ts,currentUrl);
 
         model.addAttribute("jsticket", jsApiTicket);
