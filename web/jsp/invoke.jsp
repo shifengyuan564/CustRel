@@ -11,45 +11,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/demo.js"></script>
 
     <script type="text/javascript">
-        /*    var targetUrl = location.href.split('#')[0];    /!*http://localhost:8080/pages/ticket/clientTicketForReal.html*!/
-            window.onload = function () {
-                alert(targetUrl);
-                $.ajax({
-                    type: "GET",
-                    url: "../../servlet/signServlet",
-                    data: "url=" + encodeURIComponent(targetUrl) +
-                    "&jsticket=" + encodeURIComponent($("#jsticketUrl").val()) +
-                    "&appid=" + encodeURIComponent($("#appidinput").val()),
-                    dataType: "json",
-                    async: false,
-                    success: function (data, status) {
-                        var config = data;
-                        var signature1 = config.signature;
-                        var appid1 = config.appid;
-                        var nonceStr1 = config.nonceStr;
-                        var timestamp1 = config.timestamp;
-
-                        alert("begin rel init");
-                        rel.init({
-                            debug: 1,
-                            appid: appid1,
-                            timestamp: timestamp1,
-                            nonceStr: nonceStr1,
-                            signature: signature1
-                        });
-
-
-                    }
-                });
-            };*/
-
         $(document).ready(function() {
-            console.log("输出init参数");
-            console.log($("#jsticketUrl").val());
-            console.log($("#appid-1").val());
-            console.log($("#timestamp").val());
-            console.log($("#nonceStr").val());
-            console.log($("#signature").val());
             rel.init({
                 debug: 1,
                 appid: $("#appid-1").val(),
