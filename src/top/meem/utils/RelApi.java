@@ -198,15 +198,11 @@ public class RelApi {
     }
 
     public static String getAccessToken() {
-        String accessToken = getAccessTokenSessionkey().get("accessToken");
-        //System.out.println("\n\n方法里面accessToken" + accessToken);
-        return accessToken;
+        return getAccessTokenSessionkey().get("accessToken");
     }
 
     public static String getSessionkey() {
-        String sessionkey = getAccessTokenSessionkey().get("sessionkey");
-        //System.out.println("\n\n方法里面sessionkey" + sessionkey);
-        return sessionkey;
+        return getAccessTokenSessionkey().get("sessionkey");
     }
 
     // 获取JsAPI Ticket
@@ -219,7 +215,7 @@ public class RelApi {
             Map<String, String> map = getAccessTokenSessionkey();
             GetAccessTicket at = new GetAccessTicket();
             ticket = at.getAccessTicket(map.get("accessToken"), map.get("sessionkey"), "jsapi", JSAPI_TICKET);
-            CacheManager.setCache("jsapiTicket", ticket, 50 * 60 * 1000L); // 50分钟
+            CacheManager.setCache("jsapiTicket", ticket, 100 * 60 * 1000L); // 100分钟
         }
         log.info(" JSAPI Ticket======> "+ ticket);
 

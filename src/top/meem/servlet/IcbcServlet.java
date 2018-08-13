@@ -4,10 +4,7 @@ package top.meem.servlet;
 import com.icbc.crypto.utils.Base64;
 import com.icbc.crypto.utils.RSA;
 import org.apache.log4j.Logger;
-import top.meem.utils.Constant;
-import top.meem.utils.PropertiesUtils;
-import top.meem.utils.ThreeDESClass;
-import top.meem.utils.UtilProperties;
+import top.meem.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +59,7 @@ public class IcbcServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        log.info("===DoGet====");
+        log.info("===== Icbc Servlet doGet =====");
 
         String platform_pub_key = UtilProperties.getPlatformpubkey();
         String thirdparty_priv_key = UtilProperties.getPrivkey();
@@ -90,11 +87,13 @@ public class IcbcServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        String path = this.getServletContext().getRealPath("/") + "\\config.properties";
-        try {
-            FileOutputStream bos = new FileOutputStream(PropertiesUtils.getInstance(path).getProperty("message_rcv_log"), true);
-            //System.setOut(new PrintStream(bos));
 
+        log.info("===== Icbc Servlet doPost =====");
+
+        String path = UtilProperties.getMsgRecLog();
+
+        try {
+            FileOutputStream bos = new FileOutputStream(path, true);
             InputStream is = request.getInputStream();
             {
                 byte[] b = new byte[1024];
@@ -105,14 +104,14 @@ public class IcbcServlet extends HttpServlet {
                     System.arraycopy(b, 0, t, 0, len);
                     builder.append(new String(t, "utf-8"));
                 }
-                System.out.println("接收到的消息（密文）:" + builder.toString());
+                log.info("接收到的消息（密文）:" + builder.toString());
                 //注意：请开发者自己独立处理sessionkey部分
-                System.out.println("会话密钥：" + Constant.sessionkey);
+                System.out.println("会话密钥：" + RelApi.getSessionkey());
 
 
-                byte[] cipherKey = Base64.icbcbase64decode(Constant.sessionkey);
+                byte[] cipherKey = Base64.icbcbase64decode(RelApi.getSessionkey());
 
-                System.out.println("接收到的消息（明文）:" + new String(ThreeDESClass.decrypt(Base64.icbcbase64decode(builder.toString()), cipherKey)));
+                log.info("接收到的消息（明文）:" + new String(ThreeDESClass.decrypt(Base64.icbcbase64decode(builder.toString()), cipherKey)));
                 /*商户收到支付成功的消息，必须应答*/
 				/*JSONObject json =new JSONObject();
 				json.put("errcode", "0");

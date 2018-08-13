@@ -32,6 +32,7 @@ public class UtilProperties {
 	private static String hostURL;
     private static String jsApiTicketURL;
 
+    private static String msgRecLog;
 	private static boolean debug;	/* 是否调试模式 */
 
     static {
@@ -64,6 +65,7 @@ public class UtilProperties {
 			hostURL = prop.getProperty("hostURL");                  // 授权地址
             jsApiTicketURL = prop.getProperty("jsApiTicketURL");    // jsApi ticket
 
+            msgRecLog = prop.getProperty("message_rcv_log");
             debug = Boolean.parseBoolean(prop.getProperty("debug", "false"));
 
 		} catch (IOException e) {
@@ -152,7 +154,11 @@ public class UtilProperties {
 		return ICBCHttpsCerFlag;
 	}
 
-	public static boolean isDebug() {
+    public static String getMsgRecLog() {
+        return msgRecLog;
+    }
+
+    public static boolean isDebug() {
 		return debug;
 	}
 
