@@ -3,5 +3,5 @@
 	<option value="KP44huX0rMeQNiZvGoNQRwcLSfZBQMoD">本地openid</option>
 </select> -->
 
-<input id="i_openid" type="text" value="56Bbg4cGzJXpH+agLwmb9Jd2K2LQG17S"/>
-<br/>56Bbg4cGzJXpH+agLwmb9Jd2K2LQG17S
+<input id="i_openid" type="text" value="qiRv+v+mpSTLVUUrVlQx/hbr5xyeosMG"/>
+<br/>qiRv+v+mpSTLVUUrVlQx/hbr5xyeosMG

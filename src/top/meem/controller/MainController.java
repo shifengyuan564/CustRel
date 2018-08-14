@@ -1,6 +1,7 @@
 package top.meem.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import java.util.Formatter;
 import java.util.Map;
 import java.util.UUID;
 
-
+@Scope("prototype")
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -69,30 +70,8 @@ public class MainController {
         model.addAttribute("nonceStr", nonceStr);
         model.addAttribute("appid", UtilProperties.getAppid());
 
-        return "jsp/invoke";
+        //return "jsp/invoke";
+        return "jsp/expect";
     }
 
-    @RequestMapping(value = "/invoke", method = RequestMethod.GET)
-    public String invokeQr(HttpServletRequest request, Model model){
-        log.info("/* ----------------- 进入次页面/invoke ------------------*/" );
-        return "jsp/invoke";
-    }
-
-    private static String create_nonce_str() {
-        return UUID.randomUUID().toString();
-    }
-
-    private static String create_timestamp() {
-        return Long.toString(System.currentTimeMillis());
-    }
-
-    private static String byteToHex(final byte[] hash) {
-        Formatter formatter = new Formatter();
-        for (byte b : hash) {
-            formatter.format("%02x", b);
-        }
-        String result = formatter.toString();
-        formatter.close();
-        return result;
-    }
 }

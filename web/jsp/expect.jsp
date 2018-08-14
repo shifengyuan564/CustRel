@@ -3,6 +3,18 @@
 <html>
 <head>
     <title>敬请期待</title>
+    <script type="text/javascript">
+        function jump() {
+            $.ajax({
+                type: "POST",
+                url: "/CustRel/test/btnSendMsg",
+                dataType:"text",
+                success: function(msg){
+                    $("#btnText").val(msg);
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <%--<div>
@@ -18,6 +30,7 @@
             <li><a class="ment">signature：${signature}</a></li>
         </c:if>
     </ul>
+    <button onclick="jump()" id="btnText" value=""></button>
 </div>
 </body>
 </html>
