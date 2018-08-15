@@ -92,6 +92,13 @@ public class TestController {
 
         【token】:tYL1PbY31wxIOj2hGXp4k3QYU1L96uv6loej8njLWMHPqoT30NdQNLKqTX77245h78wt3bggWdhG1985Y7JLEM7x0vl15gG0QM267msyMQAMS4T6K58MA1N4unXjpls=
         【content】:{"touser":"qiRv+v+mpSTLVUUrVlQx/hbr5xyeosMG","msgtype":"text","text":{"title":"息标","content":"息内"}}
+
+        {
+            "touser":"OPENID",
+            "msgtype":"text",
+            "text":{"title":"标题123","content":"Hello World"}
+        }
+
         */
 
         // openid, access_token, session_key, https://imapi.icbc.com.cn:443
@@ -103,7 +110,7 @@ public class TestController {
 
         MessageSend m = new MessageSend();
         String ret = m.sendMessage2(content, key, token, openid, url);
-        log.info("给"+openid+"发送的消息是："+ret);
+        log.info("给"+openid+"发送消息的返回结果是："+ret);
         return ret;
     }
     /* -------------------------------消息发送测试 end ------------------------------------*/
@@ -131,15 +138,6 @@ public class TestController {
     }
 
     private String msgContent(String openid,String title,String leaveMessage){
-        /*{
-            "touser":"OPENID",
-            "msgtype":"text",
-            "text":
-                {
-                    "title":"标题123",
-                    "content":"Hello World"
-                }
-        }*/
 
         MsgText mt = new MsgText();
         mt.setTouser(openid);
