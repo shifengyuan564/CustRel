@@ -290,33 +290,26 @@ public class RelApi {
      * @return
      * @方法描述:通过openid和access_token获取用户信息
      */
-    public static Map<String, String> getUserInfo(String access_token,
-                                                  String openid) {
+    public static Map<String, String> getUserInfo(String access_token, String openid) {
+
         Map<String, String> map = new HashMap<String, String>();
-        // 用户是否订阅该服务号标识，值为0时，代表此用户没有关注该服务号，拉取不到其余信息
-        String subscribe = "";
-        // 用户的昵称
-        String nickname = "";
-        // 用户的性别，值为1时是男性，值为0时是女性
-        String sex = "";
-        // 用户所在城市
-        String city = "";
-        // 用户所在省份
-        String province = "";
-        // 客户信息号，行内服务号返回，不存在则返回空
-        String cisno = "";
-        // 统一认证号，行内服务号返回，不存在则返回空
-        String unino = "";
-        // 统一通行证号，行内服务号返回，不存在则返回空
-        String ICBCUserid = "";
+        String ICBCUserid = "";     // 统一通行证号，行内服务号返回，不存在则返回空
+        String mobileno="";         // 手机号
+        String sex = "";            // 用户的性别，值为1时是男性，值为0时是女性
+        String subscribe = "";      // 用户是否订阅该服务号标识，值为0时，代表此用户没有关注该服务号，拉取不到其余信息
+        String city = "";           // 用户所在城市
+        String nickname = "";       // 用户的昵称
+        String cisno = "";          // 客户信息号，行内服务号返回，不存在则返回空
+        String province = "";       // 用户所在省份
+        String unino = "";          // 统一认证号，行内服务号返回，不存在则返回空
+
         try {
             StringBuilder url = new StringBuilder(USERINFO);
-            url.append("?access_token=")
-                    .append(URLEncoder.encode(access_token, "UTF-8"))
-                    .append("&openid=")
-                    .append(URLEncoder.encode(openid, "UTF-8"));
+            url.append("?access_token=").append(URLEncoder.encode(access_token, "UTF-8"))
+                    .append("&openid=").append(URLEncoder.encode(openid, "UTF-8"));
             String result = threeGet(url.toString());
-            log.info("获取用户信息=====>" + result);
+            log.info("获取用户信息=====>"+result);
+
             if (result != null) {
                 JSONObject json = new JSONObject(result);
                 subscribe = json.getString("subscribe");
@@ -327,6 +320,7 @@ public class RelApi {
                 cisno = json.getString("cisno");
                 unino = json.getString("unino");
                 ICBCUserid = json.getString("ICBCUserid");
+                mobileno = json.getString("mobileno");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -340,6 +334,7 @@ public class RelApi {
         map.put("cisno", cisno);
         map.put("unino", unino);
         map.put("ICBCUserid", ICBCUserid);
+        map.put("mobileno", mobileno);
         return map;
     }
 
