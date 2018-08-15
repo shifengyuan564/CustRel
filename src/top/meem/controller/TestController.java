@@ -31,7 +31,7 @@ public class TestController {
 
     private Logger log = Logger.getLogger(TestController.class);
 
-    // 测试主页面
+    //  主页面 (包含所有api测试功能)
     @RequestMapping(value = "/check")
     public String checkJsImport(RedirectAttributes attr) {
         return "/jsp/test";
@@ -43,7 +43,7 @@ public class TestController {
         return "/jsp/getToken";
     }
 
-    // 消息发送测试
+    /*--------------------------- 消息发送测试 start ---------------------------*/
     @RequestMapping(value = "/msgsend4openid", method = RequestMethod.GET)
     public String msgsend4openid() {
         return "/jsp/message/msgsend4openid";
@@ -53,6 +53,7 @@ public class TestController {
     @ResponseBody
     public String postMsg(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+        // 利用前台传递的值进行发送
         req.setCharacterEncoding("utf-8");
 
         // openid, access_token, session_key, https://imapi.icbc.com.cn:443
@@ -71,9 +72,16 @@ public class TestController {
 
     }
 
+    // todo : 待删 (expect页面跳转用的)
+    @RequestMapping(value = "expect", method = RequestMethod.GET)
+    public String deleteSoon(){
+        return "jsp/expect";
+    }
     @RequestMapping(value = "/btnSendMsg", method = RequestMethod.POST)
     @ResponseBody
     public String btnSendMsg(HttpServletRequest request) throws IOException {
+
+        // 自己拼装的数据发送
 
         /*
         i_token=tYL1PbY31wxIOj2hGXp4k3QYU1L96uv6loej8njLWMHPqoT30NdQNLKqTX77245h78wt3bggWdhG1985Y7JLEM7x0vl15gG0QM267msyMQAMS4T6K58MA1N4unXjpls%3D
@@ -87,7 +95,7 @@ public class TestController {
         */
 
         // openid, access_token, session_key, https://imapi.icbc.com.cn:443
-        String openid = (String)request.getSession().getAttribute("openid");//"qiRv+v+mpSTLVUUrVlQx/hbr5xyeosMG";
+        String openid = "qiRv+v+mpSTLVUUrVlQx/hbr5xyeosMG";//(String)request.getSession().getAttribute("openid");
         String token = RelApi.getAccessToken();
         String key = RelApi.getSessionkey();
         String url = "https://imapi.icbc.com.cn:443";
@@ -95,8 +103,12 @@ public class TestController {
 
         MessageSend m = new MessageSend();
         String ret = m.sendMessage2(content, key, token, openid, url);
+        log.info("给"+openid+"发送的消息是："+ret);
         return ret;
     }
+    /* -------------------------------消息发送测试 end ------------------------------------*/
+
+
 
     @RequestMapping(value = "/invoke", method = RequestMethod.GET)
     public String testScan(HttpServletRequest request, Model model) {

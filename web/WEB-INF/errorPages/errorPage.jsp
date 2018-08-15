@@ -21,7 +21,7 @@
 </header>
 --><div class="error-prompt">
   <div class="mydd">
-    <div class="picture"><img src="${pageContext.request.contextPath}/images/expertise-no.png" alt=""></div>
+    <div class="picture"><img src="${pageContext.request.contextPath}/image/expertise-no.png" alt=""></div>
     <p>你访问的页面不存在！<br>
       请稍后再试~</p>
   </div>

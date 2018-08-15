@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>敬请期待</title>
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function jump() {
             $.ajax({
@@ -30,7 +31,7 @@
             <li><a class="ment">signature：${signature}</a></li>
         </c:if>
     </ul>
-    <button onclick="jump()" id="btnText" value=""></button>
+    <button onclick="jump()" id="btnText" value="">点击</button>
 </div>
 </body>
 </html>

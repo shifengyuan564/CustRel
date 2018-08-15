@@ -1,5 +1,6 @@
 package top.meem.domain;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,7 +12,7 @@ public class MsgText {
 
     private String touser;
     private String msgtype;
-    private Map<String,String> text;
+    private Map<String,String> text = new HashMap<>();
 
     public String getTouser() {
         return touser;
