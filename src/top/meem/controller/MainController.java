@@ -70,8 +70,8 @@ public class MainController {
         model.addAttribute("nonceStr", nonceStr);
         model.addAttribute("appid", UtilProperties.getAppid());
 
-        //return "jsp/invoke";
-        return "jsp/expect";
+        return "jsp/invoke";
+        //return "jsp/expect";
     }
 
 }
